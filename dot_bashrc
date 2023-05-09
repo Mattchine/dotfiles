@@ -27,7 +27,7 @@ export PATH="$HOME/.config/nvim/bin:$PATH"
 source "$HOME/.cargo/env"
 
 ## starship
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
+# export STARSHIP_CONFIG=~/.config/shell/starship/starship.toml
 eval "$(starship init bash)"
 
 ## exa

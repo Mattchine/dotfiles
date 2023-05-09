@@ -2,6 +2,7 @@
 local wezterm = require 'wezterm'
 local mux = wezterm.mux
 
+
 -- This table will hold the configuration.
 local config = {}
 
@@ -18,6 +19,8 @@ config.color_scheme = 'Gruvbox dark, hard (base16)'
 config.font = wezterm.font 'Fira Code Nerd Font'
 config.font_size = 18.0
 
+local smartsplits = require 'smart-splits'
+config.keys = smartsplits.keys
 
 -- maximize on start up
 wezterm.on('gui-startup', function(cmd)
