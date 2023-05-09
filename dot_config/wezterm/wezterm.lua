@@ -25,6 +25,8 @@ config.use_dead_keys = false
 config.keys = keys.keys
 
 config.scrollback_lines = 5000
+config.tab_bar_at_bottom = true
+config.hide_tab_bar_if_only_one_tab = true
 
 -- maximize on start up
 wezterm.on('gui-startup', function(cmd)
