@@ -1,7 +1,3 @@
---[[
- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
- `lvim` is the global options object
-]]
 -- vim options
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
@@ -28,12 +24,9 @@ lvim.format_on_save = {
   pattern = "*.lua",
   timeout = 1000,
 }
--- to disable icons and use a minimalist setup, uncomment the following
--- lvim.use_icons = false
 
 -- keymappings <https://www.lunarvim.org/docs/configuration/keybindings>
 lvim.leader = "space"
--- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 -- vertical split 2 buffers
 lvim.keys.normal_mode["<leader>v"] = ":vert sball<cr>"
@@ -43,26 +36,21 @@ lvim.keys.term_mode["<esc>"] = "<C-\\><C-n>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 lvim.builtin.terminal.open_mapping = "<C-t>"
 
--- -- Use which-key to add extra bindings with the leader-key prefix
+-- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 
--- -- Change theme settings
--- lvim.colorscheme = "lunar"
 lvim.colorscheme = "gruvbox"
 
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "right"
-lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
+lvim.builtin.nvimtree.setup.view.side = "right"
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 
--- lvim.builtin.treesitter.ignore_install = { "haskell" }
-
--- -- always installed on startup, useful for parsers without a strict filetype
+-- always installed on startup, useful for parsers without a strict filetype
 lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "regex" }
 
 -- -- generic LSP settings <https://www.lunarvim.org/docs/configuration/language-features/language-servers>
@@ -139,25 +127,12 @@ lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "rege
 lvim.plugins = {
   { "ellisonleao/gruvbox.nvim" },
   {
-    "ray-x/lsp_signature.nvim",
-    event = "BufRead",
-    config = function() require "lsp_signature".on_attach() end,
-  },
-  {
     "tpope/vim-surround",
 
     -- make sure to change the value of `timeoutlen` if it's not triggering correctly, see https://github.com/tpope/vim-surround/issues/117
     -- setup = function()
     --  vim.o.timeoutlen = 500
     -- end
-  },
-  {
-    "phaazon/hop.nvim",
-    event = "BufRead",
-    config = function()
-      require("hop").setup()
-      vim.api.nvim_set_keymap("n", "<leader><leader>", ":HopWord<cr>", { silent = true })
-    end,
   },
   {
     "windwp/nvim-spectre",
@@ -210,5 +185,23 @@ lvim.plugins = {
       vim.api.nvim_set_keymap('n', '<C-k>', ":SmartCursorMoveUp<cr>", { silent = true })
       vim.api.nvim_set_keymap('n', '<C-l>', ":SmartCursorMoveRight<cr>", { silent = true })
     end
-  }
+  },
+  {
+    "ggandor/leap.nvim",
+    name = "leap",
+    config = function()
+      require("leap").add_default_mappings()
+    end,
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    config = function()
+      require "lsp_signature".setup({})
+    end,
+  },
 }
+
+-- https://github.com/ray-x/lsp_signature.nvim/issues/202#issuecomment-1190525409
+lvim.lsp.on_attach_callback = function(client, bufnr)
+  require "lsp_signature".on_attach()
+end
