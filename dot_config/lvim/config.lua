@@ -38,11 +38,20 @@ lvim.keys.term_mode["<esc>"] = "<C-\\><C-n>"
 
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
-lvim.builtin.terminal.open_mapping = "<C-t>"
+lvim.builtin.terminal.direction = 'horizontal'
+lvim.builtin.terminal.size = 8
+lvim.builtin.terminal.open_mapping = '<C-t>'
 
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
-lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["p"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["P"] = {
+  name = "Plugins",
+  i = { "<cmd>Lazy install<cr>", "Install" },
+  s = { "<cmd>Lazy sync<cr>", "Sync" },
+  S = { "<cmd>Lazy clear<cr>", "Status" },
+  u = { "<cmd>Lazy update<cr>", "Update" },
+}
 lvim.builtin.telescope = {
   defaults = {
     borderchars = {
@@ -151,6 +160,7 @@ lvim.plugins = {
     "windwp/nvim-spectre",
     event = "BufRead",
     config = function()
+      vim.api.nvim_set_keymap('n', '<leader>sr', ':Spectre<cr>', { silent = true })
       require("spectre").setup()
     end,
   },
