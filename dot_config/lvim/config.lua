@@ -1,3 +1,7 @@
+-- gruvbox-baby
+vim.g.gruvbox_baby_background_color = "dark"
+vim.g.gruvbox_baby_telescope_theme = 1
+
 -- vim options
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
@@ -39,8 +43,17 @@ lvim.builtin.terminal.open_mapping = "<C-t>"
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.telescope = {
+  defaults = {
+    borderchars = {
+      prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
+      results = { " " },
+      preview = { " " },
+    },
+  }
+}
 
-lvim.colorscheme = "gruvbox"
+lvim.colorscheme = "gruvbox-baby"
 
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
@@ -125,7 +138,7 @@ lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "rege
 --
 
 lvim.plugins = {
-  { "ellisonleao/gruvbox.nvim" },
+  { "luisiacc/gruvbox-baby" },
   {
     "tpope/vim-surround",
 
@@ -170,15 +183,14 @@ lvim.plugins = {
   {
     'mrjones2014/smart-splits.nvim',
     config = function()
-      vim.api.nvim_set_keymap("n", "<leader><leader>", ":HopWord<cr>", { silent = true })
       -- recommended mappings
       -- resizing splits
       -- these keymaps will also accept a range,
       -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
-      vim.api.nvim_set_keymap('n', '<A-h>', ":SmartResizeLeft<cr>", { silent = true })
-      vim.api.nvim_set_keymap('n', '<A-j>', ":SmartResizeDown<cr>", { silent = true })
-      vim.api.nvim_set_keymap('n', '<A-k>', ":SmartResizeUp<cr>", { silent = true })
-      vim.api.nvim_set_keymap('n', '<A-l>', ":SmartResizeRight<cr>", { silent = true })
+      -- vim.api.nvim_set_keymap('n', '<A-h>', ":SmartResizeLeft<cr>", { silent = true })
+      -- vim.api.nvim_set_keymap('n', '<A-j>', ":SmartResizeDown<cr>", { silent = true })
+      -- vim.api.nvim_set_keymap('n', '<A-k>', ":SmartResizeUp<cr>", { silent = true })
+      -- vim.api.nvim_set_keymap('n', '<A-l>', ":SmartResizeRight<cr>", { silent = true })
       -- moving between splits
       vim.api.nvim_set_keymap('n', '<C-h>', ":SmartCursorMoveLeft<cr>", { silent = true })
       vim.api.nvim_set_keymap('n', '<C-j>', ":SmartCursorMoveDown<cr>", { silent = true })
