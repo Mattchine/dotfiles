@@ -229,3 +229,14 @@ lvim.plugins = {
 lvim.lsp.on_attach_callback = function(client, bufnr)
   require "lsp_signature".on_attach()
 end
+
+-- prettier
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  { name = "black" },
+  {
+    name = "prettier",
+    ---@usage only start in these filetypes, by default it will attach to all filetypes it supports
+    -- filetypes = { "typescript", "typescriptreact" },
+  },
+}
