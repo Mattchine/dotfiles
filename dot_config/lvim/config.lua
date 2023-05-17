@@ -1,7 +1,3 @@
--- gruvbox-baby
-vim.g.gruvbox_baby_background_color = "dark"
-vim.g.gruvbox_baby_telescope_theme = 1
-
 -- vim options
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
@@ -31,17 +27,36 @@ lvim.format_on_save = {
 
 -- keymappings <https://www.lunarvim.org/docs/configuration/keybindings>
 lvim.leader = "space"
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<C-s>"] = ""
 -- vertical split 2 buffers
 lvim.keys.normal_mode["<leader>v"] = ":vert sball<cr>"
-lvim.keys.term_mode["<esc>"] = "<C-\\><C-n>"
+lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
--- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
--- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+-- terminal
+lvim.keys.term_mode["<esc>"] = "<C-\\><C-n>"
+lvim.builtin.terminal.active = true
 lvim.builtin.terminal.direction = 'horizontal'
 lvim.builtin.terminal.size = 8
 lvim.builtin.terminal.open_mapping = '<C-t>'
 
+-- Show previewer when searching git files with default <leader>f
+lvim.builtin.which_key.mappings["f"] = {
+  require("lvim.core.telescope.custom-finders").find_project_files,
+  "Find File"
+}
+-- Show previewer when searching buffers with <leader>bf
+lvim.builtin.which_key.mappings.b.f = {
+  "<cmd>Telescope buffers<cr>",
+  "Find"
+}
+lvim.builtin.telescope = {
+  active = true,
+  defaults = {
+    layout_strategy = "horizontal",
+    path_display = { truncate = 2 }
+  }
+}
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
 lvim.builtin.which_key.mappings["p"] = { "<cmd>Telescope projects<CR>", "Projects" }
@@ -52,21 +67,9 @@ lvim.builtin.which_key.mappings["P"] = {
   S = { "<cmd>Lazy clear<cr>", "Status" },
   u = { "<cmd>Lazy update<cr>", "Update" },
 }
-lvim.builtin.telescope = {
-  defaults = {
-    borderchars = {
-      prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
-      results = { " " },
-      preview = { " " },
-    },
-  }
-}
-
-lvim.colorscheme = "gruvbox-baby"
 
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.terminal.active = true
 
 lvim.builtin.bufferline.options.show_buffer_close_icons = false
 
@@ -149,7 +152,6 @@ lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "rege
 --
 
 lvim.plugins = {
-  { "luisiacc/gruvbox-baby" },
   {
     "tpope/vim-surround",
 
@@ -217,18 +219,7 @@ lvim.plugins = {
       require("leap").add_default_mappings()
     end,
   },
-  {
-    "ray-x/lsp_signature.nvim",
-    config = function()
-      require "lsp_signature".setup({})
-    end,
-  },
 }
-
--- https://github.com/ray-x/lsp_signature.nvim/issues/202#issuecomment-1190525409
-lvim.lsp.on_attach_callback = function(client, bufnr)
-  require "lsp_signature".on_attach()
-end
 
 -- prettier
 local formatters = require "lvim.lsp.null-ls.formatters"
@@ -240,3 +231,6 @@ formatters.setup {
     -- filetypes = { "typescript", "typescriptreact" },
   },
 }
+
+require('user.plugins.lsp_signature').config()
+require('user.theme').config()
