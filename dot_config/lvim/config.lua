@@ -25,6 +25,7 @@ lvim.format_on_save = {
   timeout = 1000,
 }
 
+
 -- keymappings <https://www.lunarvim.org/docs/configuration/keybindings>
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ""
@@ -133,14 +134,6 @@ lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "rege
 --   },
 -- }
 
--- -- Additional Plugins <https://www.lunarvim.org/docs/configuration/plugins/user-plugins>
--- lvim.plugins = {
---     {
---       "folke/trouble.nvim",
---       cmd = "TroubleToggle",
---     },
--- }
-
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "zsh",
@@ -234,3 +227,5 @@ formatters.setup {
 
 require('user.plugins.lsp_signature').config()
 require('user.theme').config()
+lvim.builtin.lualine.options.theme = "gruvbox-material"
+lvim.builtin.lualine.extensions = { require('user.plugins.lualine') }
