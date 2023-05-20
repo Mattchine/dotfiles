@@ -10,12 +10,8 @@ M.config = function()
   -- prettier
   local formatters = require "lvim.lsp.null-ls.formatters"
   formatters.setup {
-    { name = "black" },
-    {
-      name = "prettier",
-      ---@usage only start in these filetypes, by default it will attach to all filetypes it supports
-      -- filetypes = { "typescript", "typescriptreact" },
-    },
+    { name = "prettier",   filetypes = { "typescript", "typescriptreact" }, },
+    { command = "rustfmt", filetypes = { "rust" } },
   }
 end
 

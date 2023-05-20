@@ -5,7 +5,7 @@ lvim.log.level = "info"
 lvim.builtin.treesitter.auto_install = true
 
 -- always installed on startup, useful for parsers without a strict filetype
-lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "regex" }
+lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "regex", "rust", "toml" }
 
 require('user.appearance.bufferline').config()
 require('user.appearance.colorscheme').config()
@@ -27,3 +27,5 @@ require('user.plugins.telescope').config()
 require('user.plugins.toggleterm').config()
 
 require('user.programming.formatters').config()
+require('user.programming.rust').config()
+require('user.programming.rust-plugins').config()
