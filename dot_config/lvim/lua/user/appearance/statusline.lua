@@ -1,11 +1,12 @@
 local M = {}
 
-local custom_theme = require('lualine.themes.gruvbox-baby');
+local custom_theme = require('lualine.themes.gruvbox-baby')
 custom_theme.terminal = custom_theme.insert
 
 M.config = function()
   lvim.builtin.lualine.style         = "default"
   lvim.builtin.lualine.options.theme = custom_theme
+  -- lvim.builtin.lualine.options.theme = "gruvbox-baby"
 
   lvim.builtin.lualine.extensions    = {
     {
