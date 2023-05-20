@@ -1,22 +1,3 @@
--- vim options
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.relativenumber = true
-
--- fold
-vim.opt.foldmethod = "expr"
-vim.opt.foldenable = false
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.cmd(
-  [[
-    augroup remember_folds
-      autocmd!
-      autocmd BufWinLeave *.* mkview
-      autocmd BufWinEnter *.* silent! loadview
-    augroup END
-  ]]
-)
-
 -- general
 lvim.log.level = "info"
 lvim.format_on_save = {
@@ -25,32 +6,9 @@ lvim.format_on_save = {
   timeout = 1000,
 }
 
-
--- keymappings <https://www.lunarvim.org/docs/configuration/keybindings>
-lvim.leader = "space"
-lvim.keys.normal_mode["<C-s>"] = ""
--- vertical split 2 buffers
-lvim.keys.normal_mode["<leader>v"] = ":vert sball<cr>"
-lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
-lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
-
--- terminal
-lvim.keys.term_mode["<esc>"] = "<C-\\><C-n>"
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.direction = 'horizontal'
 lvim.builtin.terminal.size = 8
-lvim.builtin.terminal.open_mapping = '<C-t>'
-
--- Show previewer when searching git files with default <leader>f
-lvim.builtin.which_key.mappings["f"] = {
-  require("lvim.core.telescope.custom-finders").find_project_files,
-  "Find File"
-}
--- Show previewer when searching buffers with <leader>bf
-lvim.builtin.which_key.mappings.b.f = {
-  "<cmd>Telescope buffers<cr>",
-  "Find"
-}
 lvim.builtin.telescope = {
   active = true,
   defaults = {
@@ -146,14 +104,6 @@ lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "rege
 
 lvim.plugins = {
   {
-    "tpope/vim-surround",
-
-    -- make sure to change the value of `timeoutlen` if it's not triggering correctly, see https://github.com/tpope/vim-surround/issues/117
-    -- setup = function()
-    --  vim.o.timeoutlen = 500
-    -- end
-  },
-  {
     "windwp/nvim-spectre",
     event = "BufRead",
     config = function()
@@ -225,7 +175,11 @@ formatters.setup {
   },
 }
 
+require('user.options').config()
+require('user.keybindings').config()
+
 require('user.plugins.lsp_signature').config()
-require('user.theme').config()
-lvim.builtin.lualine.options.theme = "gruvbox-material"
-lvim.builtin.lualine.extensions = { require('user.plugins.lualine') }
+require('user.plugins.vim-surround').config()
+
+require('user.appearance.colorscheme').config()
+require('user.appearance.statusline').config()
